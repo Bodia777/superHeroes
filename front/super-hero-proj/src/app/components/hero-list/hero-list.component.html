@@ -1,0 +1,4 @@
+<div class="container">
+    <app-hero-item *ngFor="let item of heroList" [heroItem]="item"></app-hero-item>
+    <p *ngIf="!heroList || !heroList.length">Superheroes are absent now</p>
+</div>

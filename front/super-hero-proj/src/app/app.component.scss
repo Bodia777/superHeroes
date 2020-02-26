@@ -1,0 +1,15 @@
+.container{
+    min-width: 250px;
+}
+.componentImage {
+    background-image: url(/assets/img/Space.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
+    min-width:224px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1000000;
+}

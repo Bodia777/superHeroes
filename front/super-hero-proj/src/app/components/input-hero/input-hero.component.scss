@@ -1,0 +1,22 @@
+label {
+    color: white;
+}
+#inputFileSuperheroImg {
+    visibility: hidden;
+}
+.labelForInputFileSuperheroImg{
+    position: relative;
+}
+.labelForInputFileSuperheroImg::after{
+content: "+";
+width: 37px;
+height: 37px;
+border: 1px solid black;
+border-radius: 50%;
+background-color: white;
+color: black;
+position: absolute;
+top: 30px;
+left:0;
+text-align: center;
+}

@@ -1,0 +1,11 @@
+<header>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem routerLinkActive="active">
+          <a ngbNavLink routerLink="new_Hero">Add Superhero</a>
+        </li>
+        <li ngbNavItem routerLinkActive="active">
+          <a ngbNavLink routerLink="superhero_list">Superheroes List</a>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+</header>
