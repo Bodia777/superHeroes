@@ -6,5 +6,6 @@ export class Superhero {
     superheroOriginDescription: string;
     superPowers: string;
     catchPhrase: string;
-    heroImage?: Array<HeroImage>;
+    // heroImage?: Array<HeroImage>;
+    heroImage?: any;
 }

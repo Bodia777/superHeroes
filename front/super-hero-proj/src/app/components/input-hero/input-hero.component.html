@@ -22,10 +22,10 @@
         <input type="text" class="form-control" id="inputCatchPhrase" required formControlName="catchPhrase">
       </div>
       <button type="submit" class="btn btn-primary">Add hero to the list</button>
-  </form>
-  <div>
-    <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg">Choose superhero image</label>
-    <input type="file" class="form-control-file" id="inputFileSuperheroImg" (change)="addPhoto($event)">
-  </div>
-  <app-image-hero *ngFor="let heroImage of superheroImages"></app-image-hero>
+      <div>
+        <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg">Choose superhero image</label>
+        <input type="file" class="form-control-file" id="inputFileSuperheroImg" (change)="addPhoto($event)">
+      </div>
+    </form>
+  <!-- <app-image-hero *ngFor="let heroImage of superheroImages"></app-image-hero> -->
 </div>

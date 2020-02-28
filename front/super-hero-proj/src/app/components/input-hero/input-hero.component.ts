@@ -15,8 +15,9 @@ import { Superhero } from 'src/app/interfaces/hero';
   styleUrls: ['./input-hero.component.scss']
 })
 export class InputHeroComponent implements OnInit {
-  public superheroImages = [];
   public createHeroForm: FormGroup;
+  private superheroImages: File;
+  private formData = new FormData();
 
   constructor(private crudHeroService: CrudHeroService, private fb: FormBuilder, ) {}
 
@@ -29,12 +30,12 @@ export class InputHeroComponent implements OnInit {
       superheroRealname: [],
       superheroOriginDescription: [],
       superPowers: [],
-      catchPhrase: []
+      catchPhrase: [],
     });
   }
  public addPhoto(event) {
-    const uploadFile = event.target.files[0];
-    this.superheroImages[0] = uploadFile;
+    const uploadFile = event.target.files[0] || event.srcElement;
+    this.superheroImages = uploadFile;
     // this.helpersService.heroImageUrl = URL.createObjectURL(uploadFile);
     // this.renderer.setStyle(this.changePhoto.nativeElement, 'backgroundImage', `url(${this.url})`);
     // this.renderer.setStyle(this.changePhoto.nativeElement, 'backgroundSize', '100% 100%');
@@ -43,7 +44,14 @@ export class InputHeroComponent implements OnInit {
 public onsubmitHeroForm() {
   if (this.createHeroForm.valid) {
     const newSuperhero: Superhero = this.createHeroForm.value;
-    this.crudHeroService.postSuperhero(newSuperhero);
+    if (this.superheroImages) {
+    this.formData.append('newSuperhero', JSON.stringify(newSuperhero));
+    this.formData.append('heroImg', this.superheroImages);
+    this.crudHeroService.finalData = this.formData;
+    } else {
+      this.crudHeroService.finalData = newSuperhero;
+    }
+    this.crudHeroService.postSuperhero();
     this.createHeroForm.reset();
     }
   }

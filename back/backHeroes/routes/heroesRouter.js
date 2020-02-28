@@ -1,6 +1,8 @@
 // let helpers = require('../helpers/helpers');
 let heroesModel = require('../models/heroesModel');
 const router = require('express').Router();
+const multer = require ('multer');
+const upload = multer({dest:'uploads/'})
 
 router.get('/', async (req, res, next) => {
     try {
@@ -11,7 +13,9 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('heroImg'), async (req, res, next) => {
+    console.log(req.file);
+    
     try {
         const newHero = req.body;
         
@@ -22,7 +26,8 @@ router.post('/', async (req, res, next) => {
         if (!dublicate && newHero) {
             res.status(201).json(await heroesModel.create(newHero));
         } else {
-            res.status(403).send({error: 'this hero already exists. Create new hero'});
+            res.status(403).json({
+                message: 'this hero already exists. Create new hero'});
         }
     } catch (err) {
         next(err)

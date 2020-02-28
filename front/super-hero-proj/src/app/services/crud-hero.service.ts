@@ -12,19 +12,20 @@ import { ModalComponent } from '../components/modal/modal.component';
 export class CrudHeroService {
   public getSuperheroesList = new BehaviorSubject<Array<Superhero>> (null);
   private url = 'http://localhost:3000/';
+  public finalData: any;
   modalRef: BsModalRef;
   constructor(private http: HttpClient, private modalservice: BsModalService) {
     this.getSuperheroes();
    }
 
 
-  public postSuperhero(newSuperhero: Superhero): void {
-      console.log(newSuperhero);
-      this.http.post(this.url, newSuperhero, {observe: 'response'})
+  public postSuperhero(): void {
+      console.log(this.finalData);
+      this.http.post(this.url, this.finalData, {observe: 'response'})
        .pipe(catchError((err) => {
          this.modalRef = this.modalservice.show(ModalComponent, {
            initialState: {
-              message: err.error.error,
+              message: err.error.message,
               data: {}
            }
          });

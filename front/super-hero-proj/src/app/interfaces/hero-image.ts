@@ -1,5 +1,5 @@
 export class HeroImage {
-    heroImgUrl: string;
+    heroImg: File;
     id?: number;
-    selectedImg: boolean;
+    selectedImg?: boolean;
 }
