@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class HelpersService {
   public wrightNavigation = false;
+  public okButtonModalChecker = false;
+
   constructor() { }
   public wrightNavigationFunction(): void {
     this.wrightNavigation = true;

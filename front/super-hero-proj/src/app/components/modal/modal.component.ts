@@ -7,6 +7,7 @@ import {
   BsModalRef
 } from 'ngx-bootstrap';
 import { HelpersService } from 'src/app/services/helpers.service';
+import { CrudHeroService } from 'src/app/services/crud-hero.service';
 
 
 
@@ -19,7 +20,7 @@ import { HelpersService } from 'src/app/services/helpers.service';
 export class ModalComponent implements OnInit, OnDestroy {
   public message: string;
 
-  constructor(public modalRef: BsModalRef, private helpersService: HelpersService) {}
+  constructor(public modalRef: BsModalRef, public helpersService: HelpersService, private crudHeroService: CrudHeroService) {}
 
   ngOnInit(): void {}
 
@@ -27,8 +28,12 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.helpersService.wrightNavigationFunction();
   }
 
-  public closeModal(): void {
-    // this.modalRef.hide();
-    console.log('ura');
+  public deleteHeroSubmit(): void {
+    this.helpersService.okButtonModalChecker = false;
+    this.crudHeroService.deleteHero();
   }
+  public closeModal(): void {
+    this.helpersService.okButtonModalChecker = false;
+  }
+
 }

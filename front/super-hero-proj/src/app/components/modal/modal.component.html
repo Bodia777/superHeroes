@@ -8,5 +8,6 @@
     <p>{{message}}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" aria-label="Close" (click)="modalRef.hide()">Close</button>
+    <button *ngIf="helpersService.okButtonModalChecker" type="button" class="btn btn-outline-primary" aria-label="Close" (click)="modalRef.hide(); deleteHeroSubmit()">OK</button>
+    <button type="button" class="btn btn-outline-dark" aria-label="Close" (click)="modalRef.hide(); closeModal()">Close</button>
   </div>
