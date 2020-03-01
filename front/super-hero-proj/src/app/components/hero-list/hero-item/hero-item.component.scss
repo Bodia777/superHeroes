@@ -5,8 +5,20 @@
     color:black;
     margin: 15px;
     position: relative;
+    overflow: hidden;
 }
 .wrappetForButtons{
-    position: absolute;
-    bottom: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    bottom: 18px;
 }
+.img{
+    width: 100%;
+    object-fit: cover;
+    min-height: 100%
+}
+.wrappetForButtons > .bttn{
+    width: 150px;
+}
+

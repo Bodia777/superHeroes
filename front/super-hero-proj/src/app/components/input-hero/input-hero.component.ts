@@ -1,11 +1,5 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder
-} from '@angular/forms';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { CrudHeroService } from 'src/app/services/crud-hero.service';
 import { Superhero } from 'src/app/interfaces/hero';
 
@@ -16,10 +10,11 @@ import { Superhero } from 'src/app/interfaces/hero';
 })
 export class InputHeroComponent implements OnInit {
   public createHeroForm: FormGroup;
-  private superheroImages: File;
+  public superheroImages: File;
   private formData = new FormData();
+  @ViewChild('imgHero', {static: false}) addImg: ElementRef;
 
-  constructor(private crudHeroService: CrudHeroService, private fb: FormBuilder, ) {}
+  constructor(private crudHeroService: CrudHeroService, private fb: FormBuilder, private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.createHero();
@@ -33,12 +28,12 @@ export class InputHeroComponent implements OnInit {
       catchPhrase: [],
     });
   }
- public addPhoto(event) {
+ public addHeroImg(event) {
     const uploadFile = event.target.files[0] || event.srcElement;
     this.superheroImages = uploadFile;
-    // this.helpersService.heroImageUrl = URL.createObjectURL(uploadFile);
-    // this.renderer.setStyle(this.changePhoto.nativeElement, 'backgroundImage', `url(${this.url})`);
-    // this.renderer.setStyle(this.changePhoto.nativeElement, 'backgroundSize', '100% 100%');
+    const heroURL = URL.createObjectURL(event.target.files[0]);
+    this.renderer.setStyle(this.addImg.nativeElement, 'backgroundImage', `url(${heroURL})`);
+    this.renderer.setStyle(this.addImg.nativeElement, 'backgroundSize', '100% 100%');
   }
 
 public onsubmitHeroForm() {

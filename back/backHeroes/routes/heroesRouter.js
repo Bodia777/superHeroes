@@ -49,6 +49,8 @@ router.post('/', upload.single('heroImg'), async (req, res, next) => {
         }();
 
         let newHero;
+        console.log(req.file.path);
+        
         if (req.file) {
             newHero = new heroesModel({
                 _id: new mongoose.Types.ObjectId(),

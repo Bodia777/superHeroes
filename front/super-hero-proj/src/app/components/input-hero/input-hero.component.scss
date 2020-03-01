@@ -6,17 +6,20 @@ label {
 }
 .labelForInputFileSuperheroImg{
     position: relative;
+    width: 198px;
+    height: 33px;
+    background-color: blue;
+    text-align: center;
 }
-.labelForInputFileSuperheroImg::after{
-content: "+";
-width: 37px;
-height: 37px;
-border: 1px solid black;
-border-radius: 50%;
-background-color: white;
-color: black;
-position: absolute;
-top: 30px;
-left:0;
-text-align: center;
+.height {
+    height: calc(1.5em + 0.75rem + 2px);
 }
+.imgHero {
+    margin: 10px 0; 
+    width: 200px;
+    height: 200px;
+    border: 1px solid white;
+    background-image: url('/assets/img/Space.jpg');
+    background-repeat: no-repeat;
+}
+

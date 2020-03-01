@@ -10,7 +10,7 @@
       </div>
       <div>
         <label for="inputSuperheroOriginDescription" >Origin description</label>
-        <textarea name="" class="form-control" id="inputSuperheroOriginDescription" cols="90" rows="3"
+        <textarea name="" class="form-control" id="inputSuperheroOriginDescription" cols="90" rows="1.5"
           required formControlName="superheroOriginDescription"></textarea>
       </div>
       <div>
@@ -21,11 +21,12 @@
         <label for="inputCatchPhrase">Catch phrase</label>
         <input type="text" class="form-control" id="inputCatchPhrase" required formControlName="catchPhrase">
       </div>
-      <button type="submit" class="btn btn-primary">Add hero to the list</button>
       <div>
-        <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg">Choose superhero image</label>
-        <input type="file" class="form-control-file" id="inputFileSuperheroImg" (change)="addPhoto($event)">
+        <div #imgHero class="imgHero">
+          <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg">Choose superhero image</label>
+          <input type="file" class="form-control-file" id="inputFileSuperheroImg" (change)="addHeroImg($event)">
+        </div>
       </div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block height">Add hero to the list</button>
     </form>
-  <!-- <app-image-hero *ngFor="let heroImage of superheroImages"></app-image-hero> -->
 </div>
