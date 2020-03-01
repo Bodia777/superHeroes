@@ -15,6 +15,7 @@ import { AppRoutingModule } from './routing/app-routing.module';
 import { HeroListComponent } from './components/hero-list/hero-list.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { HeroItemComponent } from './components/hero-list/hero-item/hero-item.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HeroItemComponent } from './components/hero-list/hero-item/hero-item.co
     HeroListComponent,
     NavigationComponent,
     HeroItemComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

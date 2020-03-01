@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap';
+import {
+  Component,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
+import {
+  BsModalRef
+} from 'ngx-bootstrap';
+import { HelpersService } from 'src/app/services/helpers.service';
 
 
 
@@ -9,12 +16,19 @@ import { BsModalRef } from 'ngx-bootstrap';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements OnInit, OnDestroy {
   public message: string;
 
-  constructor(public modalRef: BsModalRef) { }
+  constructor(public modalRef: BsModalRef, private helpersService: HelpersService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.helpersService.wrightNavigationFunction();
   }
 
+  public closeModal(): void {
+    // this.modalRef.hide();
+    console.log('ura');
+  }
 }

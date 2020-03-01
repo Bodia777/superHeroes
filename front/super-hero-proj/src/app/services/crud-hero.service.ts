@@ -33,6 +33,8 @@ export class CrudHeroService {
          return throwError(err);
        }))
       .subscribe((data) => {
+        console.log('data', data);
+
         this.getSuperheroes();
       });
 }
