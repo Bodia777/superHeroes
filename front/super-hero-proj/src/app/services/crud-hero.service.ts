@@ -22,7 +22,6 @@ export class CrudHeroService {
     this.getSuperheroes();
    }
 
-
   public postSuperhero(): void {
     this.loaderChecker = true;
     this.http.post(this.url, this.finalData, {observe: 'response'})
@@ -88,5 +87,4 @@ public changeSuperhero(): void {
       this.getSuperheroes();
     });
 }
-
 }
