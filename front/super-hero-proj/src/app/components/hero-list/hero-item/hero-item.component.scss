@@ -1,5 +1,5 @@
 .container{
-    width: 300px;
+    width: 360px;
     height: 300px;
     background-color: #fff;
     color:black;
@@ -19,6 +19,11 @@
     min-height: 100%
 }
 .wrappetForButtons > .bttn{
-    width: 150px;
+    width: 180px;
+}
+p{
+    position: absolute;
+    top:8px;
+    left:27px;
 }
 

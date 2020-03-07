@@ -9,12 +9,11 @@ import { CrudHeroService } from 'src/app/services/crud-hero.service';
 export class HeroListComponent implements OnInit {
  public heroList = [];
 
-  constructor(private crudHeroService: CrudHeroService) { }
+  constructor(public crudHeroService: CrudHeroService) { }
 
   ngOnInit(): void {
     this.crudHeroService.getSuperheroesList.subscribe((list) => {
       this.heroList = list;
-      console.log(this.heroList);
     });
   }
 }

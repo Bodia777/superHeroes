@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
 const multer = require('multer');
-const { createHero, getHeroes, deleteHero } = require('../controllers/heroes-controller');
+const { createHero, getHeroes, getHero, deleteHero, changeHero } = require('../controllers/heroes-controller');
 
 const storage = multer.diskStorage({
     destination: function (req, file, callbackfunc) {
@@ -31,9 +31,10 @@ const upload = multer({
 });
 
 router.get('/', getHeroes);
-router.get('/:id', /*getHeroe*/);
+router.get('/:id', getHero);
 router.post('/', upload.single('heroImg'), createHero);
 router.delete('/:id', deleteHero);
+router.put('/:id', upload.single('heroImg'), changeHero);
 
 
 module.exports = router;

@@ -8,7 +8,5 @@ export class HelpersService {
   public okButtonModalChecker = false;
 
   constructor() { }
-  public wrightNavigationFunction(): void {
-    this.wrightNavigation = true;
-  }
+
 }

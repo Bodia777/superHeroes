@@ -1,4 +1,8 @@
 <div class="container">
     <app-hero-item *ngFor="let item of heroList" [heroItem]="item"></app-hero-item>
+    <div class="loaderWrap" *ngIf="crudHeroService.loaderChecker">
+        <app-loader ></app-loader>
+    </div>
+
     <p *ngIf="!heroList || !heroList.length">Superheroes are absent now</p>
 </div>

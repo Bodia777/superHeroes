@@ -4,12 +4,22 @@ label {
 #inputFileSuperheroImg {
     visibility: hidden;
 }
-.labelForInputFileSuperheroImg{
+.imageBlock{
     position: relative;
+    margin-bottom: -3vh;
+}
+.labelForInputFileSuperheroImg{
+    position: absolute;
     width: 198px;
     height: 33px;
     background-color: blue;
     text-align: center;
+    top: 1.7vh;
+    left: 0.1vw;
+}
+.labelForInputFileSuperheroImg:hover{
+    cursor: pointer;
+    background-color: rgb(34, 3, 209);
 }
 .height {
     height: calc(1.5em + 0.75rem + 2px);
@@ -19,7 +29,8 @@ label {
     width: 200px;
     height: 200px;
     border: 1px solid white;
-    background-image: url('/assets/img/Space.jpg');
-    background-repeat: no-repeat;
+}
+.width{
+    width: 50%
 }
 

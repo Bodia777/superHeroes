@@ -1,11 +1,12 @@
 <header>
-    <ul ngbNav #nav="ngbNav" class="nav-tabs">
-        <li ngbNavItem routerLinkActive="active">
-          <a ngbNavLink routerLink="new_Hero">Add Superhero</a>
-        </li>
-        <li ngbNavItem routerLinkActive="active">
-          <a ngbNavLink routerLink="superhero_list">Superheroes List</a>
-        </li>
-      </ul>
-      <div [ngbNavOutlet]="nav"></div>
+  <nav>
+    <ul class="nav nav-tabs">
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" routerLink="/new_Hero" >Add Superhero</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/superhero_list" >Superheroes List</a>
+      </li>
+    </ul>
+  </nav>
 </header>

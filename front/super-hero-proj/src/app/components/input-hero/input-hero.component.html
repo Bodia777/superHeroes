@@ -1,32 +1,38 @@
 <div class="container">
   <form action="" (ngSubmit)="onsubmitHeroForm()" [formGroup]="createHeroForm">
-      <div>
-        <label for="inputSuperheroNickname">Superhero nickname</label>
-        <input type="text" class="form-control" id="inputSuperheroNickname" required formControlName="superheroNickname">
+    <div>
+      <label for="inputSuperheroNickname">Superhero nickname</label>
+      <input type="text" class="form-control" id="inputSuperheroNickname" required formControlName="superheroNickname">
+    </div>
+    <div>
+      <label for="inputSuperheroRealname">Superhero real name</label>
+      <input type="text" class="form-control" id="inputSuperheroRealname" required formControlName="superheroRealname">
+    </div>
+    <div>
+      <label for="inputSuperheroOriginDescription">Origin description</label>
+      <textarea name="" class="form-control" id="inputSuperheroOriginDescription" cols="90" rows="1.5" required
+        formControlName="superheroOriginDescription"></textarea>
+    </div>
+    <div>
+      <label for="inputSuperPowers">Super powers</label>
+      <input type="text" class="form-control" id="inputSuperPowers" required formControlName="superPowers">
+    </div>
+    <div>
+      <label for="inputCatchPhrase">Catch phrase</label>
+      <input type="text" class="form-control" id="inputCatchPhrase" required formControlName="catchPhrase">
+    </div>
+    <div class="imageBlock">
+      <img #imgHero class="imgHero" src="/assets/img/Space.jpg">
+      <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg">Choose superhero image</label>
+      <input type="file" class="form-control-file" id="inputFileSuperheroImg" (change)="addHeroImg($event)">
+    </div>
+    <button *ngIf="!crudHeroService.changeHero; else buttonsChangeHero" type="submit"
+      class="btn btn-primary btn-lg btn-block height">Add hero to the list</button>
+    <ng-template #buttonsChangeHero>
+      <div class="changeHeroButtonsWrapper">
+        <button type="button" class="btn btn-primary height width" (click)="changeHero()">Change hero</button>
+        <button type="button" class="btn btn-danger height width" (click)="cancellChangeHero()">Cancel</button>
       </div>
-      <div>
-        <label for="inputSuperheroRealname" >Superhero real name</label>
-        <input type="text" class="form-control" id="inputSuperheroRealname" required formControlName="superheroRealname">
-      </div>
-      <div>
-        <label for="inputSuperheroOriginDescription" >Origin description</label>
-        <textarea name="" class="form-control" id="inputSuperheroOriginDescription" cols="90" rows="1.5"
-          required formControlName="superheroOriginDescription"></textarea>
-      </div>
-      <div>
-        <label for="inputSuperPowers">Super powers</label>
-        <input type="text" class="form-control" id="inputSuperPowers" required formControlName="superPowers">
-      </div>
-      <div>
-        <label for="inputCatchPhrase">Catch phrase</label>
-        <input type="text" class="form-control" id="inputCatchPhrase" required formControlName="catchPhrase">
-      </div>
-      <div>
-        <div #imgHero class="imgHero">
-          <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg">Choose superhero image</label>
-          <input type="file" class="form-control-file" id="inputFileSuperheroImg" (change)="addHeroImg($event)">
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg btn-block height">Add hero to the list</button>
-    </form>
+    </ng-template>
+  </form>
 </div>

@@ -1,10 +1,8 @@
-<div class="container" >
-<img class="img" #containerItem>
-<p>{{heroItem.superheroNickname}}</p>
+<div class="container">
+  <img class="img" #containerItem>
+  <p>{{heroItem.superheroNickname}}</p>
 </div>
-    <div class="wrappetForButtons">
-        <button type="button" class="btn btn-primary bttn" >Change</button>
-        <button type="button" class="btn btn-danger bttn" (click)="deleteHeroItem(heroItem._id)">Delete</button>
-    </div>
-
-
+<div class="wrappetForButtons">
+  <button type="button" class="btn btn-primary bttn" (click)="changeHeroItem(heroItem)">Change</button>
+  <button type="button" class="btn btn-danger bttn" (click)="deleteHeroItem(heroItem._id)">Delete</button>
+</div>
