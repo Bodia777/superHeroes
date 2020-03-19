@@ -1,8 +1,22 @@
-<div class="container">
+<div>
+  <div class="container" #container>
     <app-hero-item *ngFor="let item of heroList" [heroItem]="item"></app-hero-item>
     <div class="loaderWrap" *ngIf="crudHeroService.loaderChecker">
-        <app-loader ></app-loader>
+      <app-loader></app-loader>
     </div>
-
     <p *ngIf="!heroList || !heroList.length">Superheroes are absent now</p>
+  </div>
+  <div class="container paginationContainer" #pagination>
+<div class="container just-cont-center" >
+  <img src="/assets/icons/skip-backward.svg" alt="" width="27" height="27" title="first page" (click)="firstPageFunction()" #firstPage class=".text-important .bg-light real">
+  <img src="/assets/icons/skip-start.svg" alt="" width="27" height="27" title="previous page" (click)="previousPageFunction()" #previousPage class=".text-important .bg-light real">
+  <span class="pageNumber">{{page}} page </span>
+  <img src="/assets/icons/skip-end.svg" alt="" width="27" height="27" title="next page" (click)="nextPageFunction()" #nextPage class=".text-important .bg-light real">
+  <img src="/assets/icons/skip-forward.svg" alt="" width="27" height="27" title="last page" #lastPage class=".text-important .bg-light real" (click)="lastPageFunction()">
+  </div>
+    <div class="container just-cont-center" >
+      <span *ngIf="heroList" class="paginationLetter">Show </span>
+      <input name="limitControl" [(ngModel)]="limitControl" type="number"  min="1" max="99" (ngModelChange)="paginationFormChange()">
+      <span class="paginationLetter" > heroes per page </span>
+    </div>
 </div>

@@ -3,7 +3,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const heroesRouter = require('./routes/heroesRouter');
 const morgan = require('morgan');
-const bodyParser = require('body-parser')
 
 
 mongoose.connect('mongodb://localhost:27017/heroes', {
@@ -19,7 +18,6 @@ app.use('/uploads', express.static('uploads'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/heroes', heroesRouter);
-// app.use(employeesRouter);
 app.use((req, res, next) => {
     const error = new Error('Not found');
     error.status=404;

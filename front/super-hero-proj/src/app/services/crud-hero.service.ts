@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Superhero } from 'src/app/interfaces/hero';
@@ -13,8 +13,13 @@ export class CrudHeroService {
   public getSuperheroesList = new BehaviorSubject<Array<Superhero>> (null);
   public finalData: FormData | {};
   public changeHero: Superhero;
-  public loaderChecker = false;
+  public loaderChecker = true;
   modalRef: BsModalRef;
+  public pagination = {
+    limit: 8,
+    page: 1,
+    pages: 1
+  };
   private url = 'http://localhost:3000/heroes/';
 
 
@@ -40,13 +45,21 @@ export class CrudHeroService {
       });
 }
 
-  private getSuperheroes(): void {
+  public getSuperheroes(): void {
    this.loaderChecker = true;
-   this.http.get<Array<Superhero>>(this.url)
+   const url = this.url + `?limit=${this.pagination.limit}&page=${this.pagination.page}`;
+//  const params = new HttpParams();
+//  this.http.get<any>(url, {params, observe: 'response'})
+// const keys = heroesData.headers.keys();
+// this.headers = keys.map(key =>
+//   `${key}: ${resp.headers.get(key)}`);
+// console.log('keys', keys );
+   this.http.get<Observable< Superhero[] >>(url)
     .subscribe(
-      (heroesData) => {
+      ( heroesData ): void => {
         this.loaderChecker = false;
-        this.getSuperheroesList.next(heroesData);
+        this.pagination.pages = heroesData[1];
+        this.getSuperheroesList.next(heroesData[0]);
       },
       (error) => {
         this.loaderChecker = false;

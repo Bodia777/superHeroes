@@ -1,15 +1,9 @@
 const HeroesModel = require('../models/heroesModel');
-const mongoose = require('mongoose');
+const { hero, heroimagePath, pagination } = require('../helpers/helpers');
 
 const createHero = async (req, res, next) => {
     try {
-        let requestData = function () {
-            return (Object.keys(req.body).join(',').match(/newSuperhero/) ? JSON.parse(req.body.newSuperhero) : req.body);
-        }();
-        let newHero = {
-            _id: new mongoose.Types.ObjectId(),
-            ...requestData,
-        };
+        const newHero = hero(req.body);
         const dublicate = await HeroesModel.findOne({
             "superheroNickname": newHero.superheroNickname
         });
@@ -18,13 +12,9 @@ const createHero = async (req, res, next) => {
                 message: 'this hero already exists. Create new hero'
             });
         } else {
-            if (req.file) {
-                newHero.heroImage = req.file.path;
-            } else {
-                newHero.heroImage = 'uploads/noimage.png';
-            }
-            const hearoForSave = new HeroesModel(newHero);
-            const savedHero = await HeroesModel.create(hearoForSave);
+            heroimagePath(newHero.heroImage, req.file, newHero.heroImage = 'uploads/noimage.png');
+            const heroForSave = new HeroesModel(newHero);
+            const savedHero = await HeroesModel.create(heroForSave);
             res.status(201).json(savedHero);
         }
     } catch (err) {
@@ -33,9 +23,20 @@ const createHero = async (req, res, next) => {
 }
 
 const getHeroes = async (req, res, next) => {
-    try {
-        const superheroes = await HeroesModel.find();
-        res.json(superheroes);
+    try { 
+        const documents = await HeroesModel.countDocuments();
+        const paginationRequirments = pagination(parseInt(req.query.limit), parseInt(req.query.page), documents);
+        if (paginationRequirments.endIndex > paginationRequirments.pages * paginationRequirments.limit || paginationRequirments.startIndex < 0 ) {
+            res.status(401).json({
+                message: 'wrong page'
+            });
+        } else {
+             const superheroes = await HeroesModel.find().limit(paginationRequirments.limit).skip(paginationRequirments.startIndex);
+             const responseData = [superheroes, paginationRequirments.pages];
+             // res.set('Pages', `${pages}`)
+             // .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Pages, Accept")
+             res.json(responseData);
+        }
     } catch (err) {
         next(err)
     }

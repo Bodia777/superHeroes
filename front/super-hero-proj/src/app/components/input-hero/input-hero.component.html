@@ -1,36 +1,42 @@
 <div class="container">
   <form action="" (ngSubmit)="onsubmitHeroForm()" [formGroup]="createHeroForm">
-    <div>
+    <div class="row">
+    <div class="col-md-6">
       <label for="inputSuperheroNickname">Superhero nickname</label>
       <input type="text" class="form-control" id="inputSuperheroNickname" required formControlName="superheroNickname">
     </div>
-    <div>
+    <div class="col-md-6">
       <label for="inputSuperheroRealname">Superhero real name</label>
       <input type="text" class="form-control" id="inputSuperheroRealname" required formControlName="superheroRealname">
     </div>
-    <div>
+    <div class="col-md-6">
       <label for="inputSuperheroOriginDescription">Origin description</label>
       <textarea name="" class="form-control" id="inputSuperheroOriginDescription" cols="90" rows="1.5" required
         formControlName="superheroOriginDescription"></textarea>
     </div>
-    <div>
+    <div class="col-md-6">
       <label for="inputSuperPowers">Super powers</label>
       <input type="text" class="form-control" id="inputSuperPowers" required formControlName="superPowers">
     </div>
-    <div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-6">
       <label for="inputCatchPhrase">Catch phrase</label>
       <input type="text" class="form-control" id="inputCatchPhrase" required formControlName="catchPhrase">
     </div>
-    <div class="imageBlock">
+  </div>
+    <div class="imageBlock row justify-content-center">
       <img #imgHero class="imgHero" src="/assets/img/Space.jpg">
-      <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg">Choose superhero image</label>
+      <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg btn-primary">Choose superhero image</label>
       <input type="file" class="form-control-file" id="inputFileSuperheroImg" (change)="addHeroImg($event)">
     </div>
-    <button *ngIf="!crudHeroService.changeHero; else buttonsChangeHero" type="submit"
-      class="btn btn-primary btn-lg btn-block height">Add hero to the list</button>
+    <div class="row justify-content-center" >
+      <button *ngIf="!crudHeroService.changeHero; else buttonsChangeHero" type="submit"
+      class="btn btn-primary btn-lg height">Add hero to the list</button>
+    </div>
     <ng-template #buttonsChangeHero>
       <div class="changeHeroButtonsWrapper">
-        <button type="button" class="btn btn-primary height width" (click)="changeHero()">Change hero</button>
+        <button type="button" class="btn btn-primary height width" (click)="changeHero()">Change</button>
         <button type="button" class="btn btn-danger height width" (click)="cancellChangeHero()">Cancel</button>
       </div>
     </ng-template>

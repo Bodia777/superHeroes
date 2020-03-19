@@ -1,4 +1,3 @@
-// let helpers = require('../helpers/helpers');
 const mongoose = require('mongoose');
 const router = require('express').Router();
 const multer = require('multer');

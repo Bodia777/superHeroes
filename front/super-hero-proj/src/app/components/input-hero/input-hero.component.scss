@@ -7,15 +7,15 @@ label {
 .imageBlock{
     position: relative;
     margin-bottom: -3vh;
+    left: 100px;
 }
 .labelForInputFileSuperheroImg{
-    position: absolute;
+    position: relative;
     width: 198px;
     height: 33px;
-    background-color: blue;
     text-align: center;
     top: 1.7vh;
-    left: 0.1vw;
+    left: -199px;
 }
 .labelForInputFileSuperheroImg:hover{
     cursor: pointer;
