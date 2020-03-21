@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" (mousemove)=changeBgImgPosition($event)>
   <form action="" (ngSubmit)="onsubmitHeroForm()" [formGroup]="createHeroForm">
     <div class="row">
     <div class="col-md-6">
@@ -27,8 +27,8 @@
   </div>
     <div class="imageBlock row justify-content-center">
       <img #imgHero class="imgHero" src="/assets/img/Space.jpg">
-      <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg btn-primary">Choose superhero image</label>
-      <input type="file" class="form-control-file" id="inputFileSuperheroImg" (change)="addHeroImg($event)">
+        <label for="inputFileSuperheroImg" class="labelForInputFileSuperheroImg btn-primary">Choose superhero image</label>
+        <input type="file" class="form-control-file" id="inputFileSuperheroImg" (change)="addHeroImg($event)">
     </div>
     <div class="row justify-content-center" >
       <button *ngIf="!crudHeroService.changeHero; else buttonsChangeHero" type="submit"
@@ -41,4 +41,9 @@
       </div>
     </ng-template>
   </form>
+</div>
+<div class="row">
+  <div class="col-sm-0 col-md-12 hulkImg" #hulk ></div>
+  <div class="supermanImg" #superman></div>
+  <div class="wonderWomanImg" #wonderWoman></div>
 </div>

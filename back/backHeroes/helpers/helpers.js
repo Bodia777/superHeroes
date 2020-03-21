@@ -10,8 +10,11 @@ const hero = function (requestBody) {
     }
 };
 
-const heroimagePath = function(heroImage, requestFile, anotherResult) {
-requestFile ? heroImage = requestFile.path : anotherResult;
+const heroimagePath = function( requestFile ) {
+    let result;
+    requestFile ? result = requestFile.path : result = 'uploads/noimage.png';
+    console.log(result);
+    return result;
 }
 const pagination = function (requestLimit, requestPage, documents) {
         const startIndex = (requestPage - 1) * requestLimit;

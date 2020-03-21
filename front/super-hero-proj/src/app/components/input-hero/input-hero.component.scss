@@ -1,36 +1,102 @@
+.supermanImg{
+    background-image: url(/assets/img/superman.png);
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-size: 100% 100%;
+    position: fixed;
+    width: 25vw;
+    height: 100vh;
+    top: 0;
+    left: -8vw;
+    z-index: -50;
+    transition-property: left;
+    transition-duration: 0.2s;
+}
+.wonderWomanImg{
+    background-image: url(/assets/img/wonderWoman.png);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-size: 50% 50%;
+    position: fixed;
+    width: 25vw;
+    height: 100vh;
+    top: 30vh;
+    left: 17.5vw;
+    z-index: -50;
+    transition-property: left;
+    transition-duration: 0.2s;
+}
+.hulkImg{
+    width: 40vw;
+    height: 100vh;
+    background-position-x: left;
+    background-image: url(/assets/img/hulk.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: fixed;
+    top: 0;
+    right:-18vw;
+    z-index: -50;
+    transition-property: right;
+    transition-duration: 0.2s;
+}
 label {
     color: white;
+    margin-top: 17px;
+    box-shadow: 0px 2px 4px blue;
+    border: none;
+    border-bottom: 1px solid blue;
+}
+input, textarea {
+    color: white;
+    text-shadow: 1px 1px 5px green;
+    background-color: rgb(219, 213, 213);
 }
 #inputFileSuperheroImg {
     visibility: hidden;
 }
 .imageBlock{
     position: relative;
-    margin-bottom: -3vh;
-    left: 100px;
+    margin-top: 17px;
 }
 .labelForInputFileSuperheroImg{
-    position: relative;
+    position: absolute;
     width: 198px;
     height: 33px;
     text-align: center;
-    top: 1.7vh;
-    left: -199px;
+    top: -0.9vh;
+    text-shadow: 2px 1px 4px grey;
 }
 .labelForInputFileSuperheroImg:hover{
     cursor: pointer;
-    background-color: rgb(34, 3, 209);
+    background-color: white;
+    color: blue;
 }
 .height {
     height: calc(1.5em + 0.75rem + 2px);
 }
 .imgHero {
+    display: block;
     margin: 10px 0; 
     width: 200px;
     height: 200px;
     border: 1px solid white;
 }
+
 .width{
     width: 50%
 }
 
+@media screen and (max-width: 799px) {
+    .supermanImg {
+        display: none;
+    }
+    .hulkImg {
+        display: none;
+    }
+    .wonderWomanImg{
+        top: 5vh;
+        left: 40vw;
+        background-size: 90% 90%;
+    }
+}

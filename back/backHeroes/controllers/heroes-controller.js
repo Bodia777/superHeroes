@@ -12,8 +12,10 @@ const createHero = async (req, res, next) => {
                 message: 'this hero already exists. Create new hero'
             });
         } else {
-            heroimagePath(newHero.heroImage, req.file, newHero.heroImage = 'uploads/noimage.png');
+            newHero.heroImage = heroimagePath( req.file, 'uploads/noimage.png');
             const heroForSave = new HeroesModel(newHero);
+            console.log('heroForSave', heroForSave);
+            
             const savedHero = await HeroesModel.create(heroForSave);
             res.status(201).json(savedHero);
         }
@@ -97,7 +99,6 @@ const changeHero = async (req, res, next) => {
         let requestData = function () {
             return (Object.keys(req.body).join(',').match(/newSuperhero/) ? JSON.parse(req.body.newSuperhero) : req.body);
         }();
-        console.log(requestData, 'requestData');
 
         let newHero = {
             ...requestData,

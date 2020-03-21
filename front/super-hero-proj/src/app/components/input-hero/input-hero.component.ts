@@ -14,11 +14,20 @@ export class InputHeroComponent implements OnInit, OnDestroy {
   public superheroImages: File;
   private formData = new FormData();
   @ViewChild('imgHero', {static: true}) addImg: ElementRef;
+  @ViewChild('hulk', {static: true}) hulk: ElementRef;
+  @ViewChild('superman', {static: true}) superman: ElementRef;
+  @ViewChild('wonderWoman', {static: true}) wonderWoman: ElementRef;
+  private hulkPositionX: number;
+  private supermanPositionX: number;
+  private wonderWomanPositionX: number;
 
   constructor(private router: Router, public crudHeroService: CrudHeroService, private fb: FormBuilder, private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.createHero();
+    this.hulkPositionX = + window.getComputedStyle(this.hulk.nativeElement, null).getPropertyValue('right').slice(0, -2);
+    this.supermanPositionX = + window.getComputedStyle(this.superman.nativeElement, null).getPropertyValue('left').slice(0, -2);
+    this.wonderWomanPositionX = + window.getComputedStyle(this.wonderWoman.nativeElement, null).getPropertyValue('left').slice(0, -2);
   }
   ngOnDestroy(): void {
     this.createHeroForm.reset();
@@ -70,12 +79,12 @@ public onsubmitHeroForm() {
     }
   }
 
-  cancellChangeHero() {
+public  cancellChangeHero(): void {
     this.crudHeroService.changeHero = null;
     this.router.navigate(['superhero_list']);
   }
 
-  changeHero() {
+public  changeHero(): void {
     if (this.createHeroForm.valid) {
       const newSuperhero: Superhero = this.createHeroForm.value;
       if (this.superheroImages) {
@@ -89,4 +98,15 @@ public onsubmitHeroForm() {
       this.router.navigate(['superhero_list']);
       }
   }
+
+public changeBgImgPosition(event) {
+  const changeDistance = 60 - event.clientX / 10;
+  const hulkChangeDistance = this.hulkPositionX + changeDistance + 'px';
+  const supermanChangeDistance = this.supermanPositionX - changeDistance + 'px';
+  const wonderWomanChangeDistance = this.wonderWomanPositionX - changeDistance / 40 + 'px';
+  this.renderer.setStyle(this.hulk.nativeElement, 'right', hulkChangeDistance);
+  this.renderer.setStyle(this.superman.nativeElement, 'left', supermanChangeDistance);
+  this.renderer.setStyle(this.wonderWoman.nativeElement, 'left', wonderWomanChangeDistance);
+
+}
 }
