@@ -14,8 +14,6 @@ const createHero = async (req, res, next) => {
         } else {
             newHero.heroImage = heroimagePath( req.file, 'uploads/noimage.png');
             const heroForSave = new HeroesModel(newHero);
-            console.log('heroForSave', heroForSave);
-            
             const savedHero = await HeroesModel.create(heroForSave);
             res.status(201).json(savedHero);
         }
