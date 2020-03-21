@@ -26,6 +26,7 @@ export class HeroListComponent implements OnInit, OnDestroy {
   ) { }
 
  ngOnInit(): void {
+  this.page = (this.crudHeroService.pagination.page || 1);
   this.getSuperHeroList();
   if (this.page === 1 ) {
     this.renderer.setAttribute(this.previousPage.nativeElement, 'disabled', 'true');

@@ -13,7 +13,6 @@ const hero = function (requestBody) {
 const heroimagePath = function( requestFile ) {
     let result;
     requestFile ? result = requestFile.path : result = 'uploads/noimage.png';
-    console.log(result);
     return result;
 }
 const pagination = function (requestLimit, requestPage, documents) {
