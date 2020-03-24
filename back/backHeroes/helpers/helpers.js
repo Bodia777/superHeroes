@@ -1,42 +1,57 @@
 const mongoose = require('mongoose');
+const HeroesModel = require('../models/heroesModel');
 
-const hero = function (requestBody) {
-    let requestData = function (requestBody) {
-        return (Object.keys(requestBody).join(',').match(/newSuperhero/) ? JSON.parse(requestBody.newSuperhero) : requestBody);
+const helpersHero = function (requestBody, createNewHero) {
+    const requestData = function (requestBody) {
+        const body = (Object.keys(requestBody).join(',').match(/newSuperhero/) ? JSON.parse(requestBody.newSuperhero) : requestBody);
+        body.superheroNickname = body.superheroNickname.toUpperCase();
+        return body;
     }(requestBody);
-    return {
-    _id: new mongoose.Types.ObjectId(),
-    ...requestData
+    if (createNewHero) {
+        return {
+            _id: new mongoose.Types.ObjectId(),
+            ...requestData
+        }
+    } else {
+        return { ...requestData }
     }
 };
 
-const heroimagePath = function( requestFile ) {
+const helpersHeroimagePath = function ( requestFile ) {
     let result;
     requestFile ? result = requestFile.path : result = 'uploads/noimage.png';
     return result;
 }
-const pagination = function (requestLimit, requestPage, documents) {
-        const startIndex = (requestPage - 1) * requestLimit;
-        const endIndex = requestPage * requestLimit;
-        // const results = {};
-        // if (endIndex < documents) {
-        //     results.next = {
-        //         page: requestPage + 1,
-        //         limit: requestLimit
-        //     };
-        // }
-        // if (startIndex > 0)
-        //     results.previous = {
-        //         page: requestPage - 1,
-        //         limit: requestLimit
-        //     };
-        const pages = Math.ceil(documents/requestLimit);
-        return {
-            limit: requestLimit,
-            startIndex: startIndex,
-            endIndex: endIndex,
-            pages: pages
-        }
-        }
 
-module.exports = { hero, heroimagePath, pagination };
+const helpersPagination = function (requestLimit, requestPage, documents) {
+    const startIndex = (requestPage - 1) * requestLimit;
+    const endIndex = requestPage * requestLimit;
+    const pages = Math.ceil(documents / requestLimit);
+    return {
+        limit: requestLimit,
+        startIndex: startIndex,
+        endIndex: endIndex,
+        pages: pages
+    }
+}
+
+const helpersDublicateChecker = async function(hero) {
+    const dublicate = await HeroesModel.findOne({
+        "superheroNickname": hero.superheroNickname
+    });
+        return dublicate;
+}
+
+const helpersInvalidParams = function(id) {
+    const invalidParams = [];
+    if (!id) invalidParams.push('id');
+    return invalidParams.length;
+}
+
+module.exports = {
+    helpersHero,
+    helpersHeroimagePath,
+    helpersPagination,
+    helpersDublicateChecker,
+    helpersInvalidParams
+};

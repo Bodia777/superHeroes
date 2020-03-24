@@ -1,18 +1,23 @@
 const HeroesModel = require('../models/heroesModel');
-const { hero, heroimagePath, pagination } = require('../helpers/helpers');
+const {
+    helpersHero,
+    helpersHeroimagePath,
+    helpersPagination,
+    helpersDublicateChecker,
+    helpersInvalidParams
+} = require('../helpers/helpers');
+
 
 const createHero = async (req, res, next) => {
     try {
-        const newHero = hero(req.body);
-        const dublicate = await HeroesModel.findOne({
-            "superheroNickname": newHero.superheroNickname
-        });
+        const newHero = helpersHero(req.body, createNewHero = true);
+        const dublicate = await helpersDublicateChecker(newHero);
         if (dublicate) {
             res.status(403).json({
                 message: 'this hero already exists. Create new hero'
             });
         } else {
-            newHero.heroImage = heroimagePath( req.file, 'uploads/noimage.png');
+            newHero.heroImage = helpersHeroimagePath(req.file);
             const heroForSave = new HeroesModel(newHero);
             const savedHero = await HeroesModel.create(heroForSave);
             res.status(201).json(savedHero);
@@ -23,19 +28,17 @@ const createHero = async (req, res, next) => {
 }
 
 const getHeroes = async (req, res, next) => {
-    try { 
+    try {
         const documents = await HeroesModel.countDocuments();
-        const paginationRequirments = pagination(parseInt(req.query.limit), parseInt(req.query.page), documents);
-        if (paginationRequirments.endIndex > paginationRequirments.pages * paginationRequirments.limit || paginationRequirments.startIndex < 0 ) {
+        const paginationRequirments = helpersPagination(parseInt(req.query.limit), parseInt(req.query.page), documents);
+        if (paginationRequirments.endIndex > paginationRequirments.pages * paginationRequirments.limit || paginationRequirments.startIndex < 0) {
             res.status(401).json({
                 message: 'wrong page'
             });
         } else {
-             const superheroes = await HeroesModel.find().limit(paginationRequirments.limit).skip(paginationRequirments.startIndex);
-             const responseData = [superheroes, paginationRequirments.pages];
-             // res.set('Pages', `${pages}`)
-             // .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Pages, Accept")
-             res.json(responseData);
+            const superheroes = await HeroesModel.find().limit(paginationRequirments.limit).skip(paginationRequirments.startIndex);
+            const responseData = [superheroes, paginationRequirments.pages];
+            res.json(responseData);
         }
     } catch (err) {
         next(err)
@@ -44,15 +47,15 @@ const getHeroes = async (req, res, next) => {
 
 const getHero = async (req, res, next) => {
     try {
-        const id = req.params.id;
-        const invalidParams = [];
-        if (!id) invalidParams.push('id');
-        if (invalidParams.length) {
+        const invalidParams = helpersInvalidParams(req);
+        if (invalidParams) {
             res.status(401).json({
                 message: `invalid params ${invalidParams.join(', ')}`
             });
         } else {
-            const superhero = await HeroesModel.findOne({_id: id});
+            const superhero = await HeroesModel.findOne({
+                _id: id
+            });
             if (superhero) res.json(superhero);
         }
     } catch (err) {
@@ -61,11 +64,10 @@ const getHero = async (req, res, next) => {
 }
 
 const deleteHero = async (req, res, next) => {
-    const id = req.params.id;
-    const invalidParams = [];
-    if (!id) invalidParams.push('id');
     try {
-        if (invalidParams.length) {
+    const id = req.params.id;
+        const invalidParams = helpersInvalidParams(id);
+        if (invalidParams) {
             res.status(401).json({
                 message: `invalid params ${invalidParams.join(', ')}`
             });
@@ -85,55 +87,39 @@ const deleteHero = async (req, res, next) => {
 }
 
 const changeHero = async (req, res, next) => {
-    const id = req.params.id;
-    const invalidParams = [];
-    if (!id) invalidParams.push('id');
+    async function response (newHero, req, res, id) {
+        if (req.file) {
+            newHero.heroImage = helpersHeroimagePath(req.file);
+        }
+        await HeroesModel.updateOne({
+            _id: id
+        }, newHero, function (err) {
+            if (err) next(err);
+        });
+        res.status(204).json({
+            result: 'success'
+        });
+    }
     try {
-        if (invalidParams.length) {
+        const id = req.params.id;
+        const invalidParams = helpersInvalidParams(id);
+        if (invalidParams) {
             res.status(401).json({
                 message: `invalid params ${invalidParams.join(', ')}`
             });
         }
-        let requestData = function () {
-            return (Object.keys(req.body).join(',').match(/newSuperhero/) ? JSON.parse(req.body.newSuperhero) : req.body);
-        }();
-
-        let newHero = {
-            ...requestData,
-        };
-        const dublicate = await HeroesModel.findOne({
-            "superheroNickname": newHero.superheroNickname
-        });
+        const newHero = helpersHero(req.body, createNewHero = false);
+        const dublicate = await helpersDublicateChecker(newHero);
         if (dublicate) {
             if (JSON.stringify(dublicate._id) !== JSON.stringify(id)) {
                 res.status(403).json({
                     message: 'this hero already exists. Change new hero nickname'
                 });
             } else {
-                if (req.file) {
-                    newHero.heroImage = req.file.path;
-                }
-                await HeroesModel.updateOne({
-                    _id: id
-                }, newHero, function (err) {
-                    if (err) next(err);
-                });
-                res.status(204).json({
-                    result: 'success'
-                });
+                response(newHero, req, res, id);
             }
         } else {
-            if (req.file) {
-                newHero.heroImage = req.file.path;
-            }
-            await HeroesModel.updateOne({
-                _id: id
-            }, newHero, function (err) {
-                if (err) next(err);
-            });
-            res.status(204).json({
-                result: 'success'
-            });
+            response(newHero, req, res, id);
         }
     } catch (err) {
         next(err);
